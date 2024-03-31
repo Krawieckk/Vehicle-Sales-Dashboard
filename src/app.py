@@ -9,8 +9,11 @@ df = pd.read_csv('../car_prices.csv').dropna()
 df['state'] = df['state'].apply(lambda x: x.upper())
 
 
-best_sellers = px.bar(df.make.value_counts()[0:10], title='Best selling manufacturers', labels=dict(make = 'Manufacturer', value='Sales')).update_layout(template='plotly_dark', title_x=.5, showlegend=False)
-price_hist = px.histogram(df, x='sellingprice', title='Sale Price Histogram', labels=dict(sellingprice = 'Selling Price', count='Sales')).update_layout(template='plotly_dark', title_x=.5)
+best_sellers = px.bar(df.make.value_counts()[0:10], title='Best selling manufacturers',
+                      labels=dict(make='Manufacturer', value='Sales')).update_layout(template='plotly_dark', title_x=.5,
+                                                                                     showlegend=False)
+price_hist = px.histogram(df, x='sellingprice', title='Sale Price Histogram',
+                          labels=dict(sellingprice='Selling Price', count='Sales')).update_layout(template='plotly_dark', title_x=.5)
 transmission_bar = px.bar(df, 'transmission')
 
 
@@ -38,7 +41,9 @@ app.layout = html.Div(
                               ' text-center gap-2',
                     children=[
                         html.P(children=f'Created with Vehicle Sales dataset:'),
-                        html.A(href='https://www.kaggle.com/datasets/syedanwarafridi/vehicle-sales-data', children='https://www.kaggle.com/datasets/syedanwarafridi/vehicle-sales-data', className='text-white/[.8]')
+                        html.A(href='https://www.kaggle.com/datasets/syedanwarafridi/vehicle-sales-data',
+                               children='https://www.kaggle.com/datasets/syedanwarafridi/vehicle-sales-data',
+                               className='text-white/[.8]')
                     ]
                 ),
                 html.Div(
@@ -48,13 +53,16 @@ app.layout = html.Div(
                         html.Div(
                             className='flex flex-col w-full gap-4 lg:gap-20 bg-[#111111] 2xl:w-1/2 text-center py-10 text-black',
                             children=[
-                                html.H4(children='Number of vehicle sales in different states by year of production', className='text-base md:text-lg lg:text-xl text-white px-6'),
+                                html.H4(children='Number of vehicle sales in different states by year of production',
+                                        className='text-base md:text-lg lg:text-xl text-white px-6'),
                                 dcc.Graph(id='map-content'),
                                 html.Div(
                                     className='w-full flex flex-col gap-4 items-center',
                                     children=[
-                                        html.P('Select year of production', className='text-white text-center pl-6 lg:text-base xl:text-lg'),
-                                        dcc.Dropdown(df.year.unique(), className='text-black px-6 w-full w-[350px]', value=2015, id='map-dropdown')
+                                        html.P('Select year of production',
+                                               className='text-white text-center pl-6 lg:text-base xl:text-lg'),
+                                        dcc.Dropdown(df.year.unique(), className='text-black px-6 w-full w-[350px]',
+                                                     value=2015, id='map-dropdown')
                                     ]
                                 ),
                             ]
@@ -186,7 +194,7 @@ def update_map(value):
 )
 def update_manufacturer_sales(name, year, model_name):
     dff = df.copy()
-    dff = dff[dff['make']==name]
+    dff = dff[dff['make'] == name]
 
 
     if ctx.triggered_id=='manufacturer-name':
@@ -245,4 +253,4 @@ def update_manufacturer_sales(name, year, model_name):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8071)
