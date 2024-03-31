@@ -1,9 +1,12 @@
-from dash import Dash, html, dcc, callback, Output, Input, ctx
+from dash import Dash, html, dcc, Output, Input, ctx
 import plotly.express as px
 import plotly.figure_factory as ff
 import pandas as pd
 
 external_script = ["https://tailwindcss.com/", {"src": "https://cdn.tailwindcss.com"}]
+
+app = Dash(__name__, external_scripts=external_script)
+server = app.server
 
 df = pd.read_csv('../car_prices.csv').dropna()
 df['state'] = df['state'].apply(lambda x: x.upper())
@@ -15,14 +18,6 @@ best_sellers = px.bar(df.make.value_counts()[0:10], title='Best selling manufact
 price_hist = px.histogram(df, x='sellingprice', title='Sale Price Histogram',
                           labels=dict(sellingprice='Selling Price', count='Sales')).update_layout(template='plotly_dark', title_x=.5)
 transmission_bar = px.bar(df, 'transmission')
-
-
-
-app = Dash(
-    __name__,
-    external_scripts=external_script,
-)
-server = app.server
 
 app.layout = html.Div(
     className='family-serif text-white text-sm bg-[#111111] overflow-hidden',
@@ -161,7 +156,8 @@ app.layout = html.Div(
     ]
 )
 
-@callback(
+
+@app.callback(
     Output('map-content', 'figure'),
     Input('map-dropdown', 'value')
 )
@@ -181,7 +177,8 @@ def update_map(value):
 
     return fig_map
 
-@callback(
+
+@app.callback(
     [Output('manufacturer-name-p', 'children'),
      Output('manufacturer-sales-graph', 'figure'),
      Output('transmission-distribution', 'figure'),
@@ -210,7 +207,7 @@ def update_manufacturer_sales(name, year, model_name):
             dff = dff[dff['model'] == model_name]
 
     if model_name is not None:
-        dff = dff[dff['model']==model_name]
+        dff = dff[dff['model'] == model_name]
     else:
         dff = df.copy()
         dff = dff[dff['make'] == name]
