@@ -157,7 +157,8 @@ app.layout = html.Div(
 
 @app.callback(
     Output('map-content', 'figure'),
-    Input('map-dropdown', 'value')
+    Input('map-dropdown', 'value'),
+    timeout=2000
 )
 def update_map(value):
     dff = df.copy()
@@ -186,6 +187,7 @@ def update_map(value):
     [Input('manufacturer-name', 'value'),
      Input('year-of-production', 'value'),
      Input('model-name', 'value')],
+    timeout=3000
 )
 def update_manufacturer_sales(name, year, model_name):
     dff = df.copy()
