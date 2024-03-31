@@ -72,8 +72,6 @@ app.layout = html.Div(
                             ]
                         ),
 
-
-
                         # FILTER
                         html.Div(
                             className='bg-[#111111] w-full',
@@ -163,7 +161,7 @@ app.layout = html.Div(
 )
 def update_map(value):
     dff = df.copy()
-    dff = dff[dff.year==value].state.value_counts()
+    dff = dff[dff.year == value].state.value_counts()
     dff = dff.rename_axis('state_code').reset_index(name='sales')
 
     fig_map = px.choropleth(
@@ -173,7 +171,7 @@ def update_map(value):
         scope='usa',
         color='sales',
         template='plotly_dark',
-    ).update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    ).update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
     return fig_map
 
@@ -193,27 +191,29 @@ def update_manufacturer_sales(name, year, model_name):
     dff = df.copy()
     dff = dff[dff['make'] == name]
 
+    if ctx.triggered_id == 'manufacturer-name':
+        year = None
+        model_name = None
 
-    if ctx.triggered_id=='manufacturer-name':
-        if model_name is not None:
-            model_name = None
+    elif ctx.triggered_id == 'year-of-production':
+        if year is None:
+            if model_name is not None:
+                dff = dff[dff['model'] == model_name]
+        else:
+            if model_name is not None:
+                dff = dff[(dff['year'] == year) & (dff['model'] == model_name)]
+            else:
+                dff = dff[dff['year'] == year]
 
-    if year is not None:
-        dff = dff[dff['year']==year]
-    else:
-        dff = df.copy()
-        dff = dff[dff['make'] == name]
-        if model_name is not None:
-            dff = dff[dff['model'] == model_name]
-
-    if model_name is not None:
-        dff = dff[dff['model'] == model_name]
-    else:
-        dff = df.copy()
-        dff = dff[dff['make'] == name]
-        if year is not None:
-            dff = dff[dff['year'] == year]
-
+    elif ctx.triggered_id == 'model-name':
+        if model_name is None:
+            if year is not None:
+                dff = dff[dff['year'] == year]
+        else:
+            if year is not None:
+                dff = dff[(dff['year'] == year) & (dff['model'] == model_name)]
+            else:
+                dff = dff[dff['model'] == model_name]
 
     manufacturer_sales = px.box(
         data_frame=dff,
@@ -224,8 +224,8 @@ def update_manufacturer_sales(name, year, model_name):
 
     transmission_dis = px.pie(
         data_frame=dff,
-        names = dff['transmission'],
         template='plotly_dark',
+        names=dff['transmission'],
         title='Transmission'
     ).update_layout(title_x=.5)
 
@@ -250,4 +250,4 @@ def update_manufacturer_sales(name, year, model_name):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8071)
