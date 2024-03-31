@@ -5,7 +5,7 @@ import pandas as pd
 
 external_script = ["https://tailwindcss.com/", {"src": "https://cdn.tailwindcss.com"}]
 
-df = pd.read_csv('car_prices.csv').dropna()
+df = pd.read_csv('../car_prices.csv').dropna()
 df['state'] = df['state'].apply(lambda x: x.upper())
 
 
@@ -19,6 +19,7 @@ app = Dash(
     __name__,
     external_scripts=external_script,
 )
+server = app.server
 
 app.layout = html.Div(
     className='family-serif text-white text-sm bg-[#111111] overflow-hidden',
