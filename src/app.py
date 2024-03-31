@@ -253,4 +253,4 @@ def update_manufacturer_sales(name, year, model_name):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8071)
+    app.run(debug=True)
