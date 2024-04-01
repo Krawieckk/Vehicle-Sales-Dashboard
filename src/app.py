@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import pandas as pd
 
-df = pd.read_csv('https://raw.githubusercontent.com/Krawieckk/Vehicle-Sales-Dashboard/main/car_prices.csv').dropna()
+df = pd.read_csv('../car_prices.csv').dropna()
 df['state'] = df['state'].apply(lambda x: x.upper())
 
 external_script = ["https://tailwindcss.com/", {"src": "https://cdn.tailwindcss.com"}]
