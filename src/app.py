@@ -3,14 +3,10 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import pandas as pd
 
-external_script = ["https://tailwindcss.com/", {"src": "https://cdn.tailwindcss.com"}]
-
-app = Dash(__name__, external_scripts=external_script)
-server = app.server
-
-df = pd.read_csv('../car_prices.csv').dropna()
+df = pd.read_csv('https://raw.githubusercontent.com/Krawieckk/Vehicle-Sales-Dashboard/main/car_prices.csv').dropna()
 df['state'] = df['state'].apply(lambda x: x.upper())
 
+external_script = ["https://tailwindcss.com/", {"src": "https://cdn.tailwindcss.com"}]
 
 best_sellers = px.bar(df.make.value_counts()[0:10], title='Best selling manufacturers',
                       labels=dict(make='Manufacturer', value='Sales')).update_layout(template='plotly_dark', title_x=.5,
@@ -18,6 +14,9 @@ best_sellers = px.bar(df.make.value_counts()[0:10], title='Best selling manufact
 price_hist = px.histogram(df, x='sellingprice', title='Sale Price Histogram',
                           labels=dict(sellingprice='Selling Price', count='Sales')).update_layout(template='plotly_dark', title_x=.5)
 transmission_bar = px.bar(df, 'transmission')
+
+app = Dash(__name__, external_scripts=external_script)
+server = app.server
 
 app.layout = html.Div(
     className='family-serif text-white text-sm bg-[#111111] overflow-hidden',
@@ -158,7 +157,6 @@ app.layout = html.Div(
 @app.callback(
     Output('map-content', 'figure'),
     Input('map-dropdown', 'value'),
-    timeout=2000
 )
 def update_map(value):
     dff = df.copy()
@@ -187,7 +185,7 @@ def update_map(value):
     [Input('manufacturer-name', 'value'),
      Input('year-of-production', 'value'),
      Input('model-name', 'value')],
-    timeout=3000
+    prevent_initial_call=True
 )
 def update_manufacturer_sales(name, year, model_name):
     dff = df.copy()
