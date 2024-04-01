@@ -159,8 +159,7 @@ app.layout = html.Div(
     Input('map-dropdown', 'value'),
 )
 def update_map(value):
-    dff = df.copy()
-    dff = dff[dff.year == value].state.value_counts()
+    dff = df[df.year == value].state.value_counts()
     dff = dff.rename_axis('state_code').reset_index(name='sales')
 
     fig_map = px.choropleth(
