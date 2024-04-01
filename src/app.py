@@ -72,80 +72,80 @@ app.layout = html.Div(
                         ),
 
                         # FILTER
-                        html.Div(
-                            className='bg-[#111111] w-full',
-                            children=[
-                                html.Div(
-                                    className='flex flex-col gap-4 items-center bg-[#222222]',
-                                    children=[
-                                        html.Div(
-                                            className='w-full flex flex-col md:max-w-[500px] px-6 pt-6 gap-3 md:text-base',
-                                            children=[
-                                                html.H3(children='Specific search',
-                                                        className='text-base pb-4 md:py-6 lg:text-lg 2xl:text-xl'),
-                                                html.Div([
-                                                    html.P(children='Manufacturer', className='text-bold mb-1'),
-                                                    dcc.Dropdown(
-                                                        id='manufacturer-name',
-                                                        options=df.make.unique(),
-                                                        className='text-black',
-                                                        value='Ford',
-                                                        clearable=False,
-                                                    )
-                                                ]),
-                                                html.Div([
-                                                    html.P(children='Model', className='text-bold mb-1'),
-                                                    dcc.Dropdown(
-                                                        id='model-name',
-                                                        className='text-black',
-                                                    )
-                                                ]),
-                                                html.Div([
-                                                    html.P(children='Year of Production', className='text-bold mb-1', ),
-                                                    dcc.Dropdown(options=df.year.unique(), id='year-of-production',
-                                                                 className='text-black', placeholder='Any'),
-                                                ]),
-                                            ]
-                                        ),
-
-                                        html.P(
-                                            className='text-center py-6 md:py-8 text-lg 2xl:text-xl font-bold',
-                                            id='manufacturer-name-p',
-                                        ),
-                                        html.Div(
-                                            className='w-full max-w-[700px] pb-6 md:pb-12 lg:pb-16',
-                                            children=[
-                                                dcc.Graph(id='filtered-table'),
-                                            ]
-                                        ),
-
-                                        html.Div(
-                                            className='w-full flex flex-col bg-[#111111] pt-6 md:pt-12 lg:pt-16',
-                                            children=[
-                                                html.P(
-                                                    className='text-center text-lg md:text-xl lg:text-xl font-bold pb-6 md:pb-12 lg:pb-16',
-                                                    children='Filtered data plots'
-                                                ),
-                                                html.Div(
-                                                    className='w-full flex flex-col xl:flex-row xl:justify-center xl:gap-12',
-                                                    children=[
-                                                        dcc.Graph(id='manufacturer-sales-graph'),
-                                                        dcc.Graph(id='transmission-distribution')
-                                                    ]
-
-                                                ),
-                                                html.Div(
-                                                    className='w-full flex flex-col xl:flex-row xl:justify-center md:pb-12',
-                                                    children=[
-                                                        dcc.Graph(id='best-selling-states')
-                                                    ]
-                                                ),
-                                            ]
-                                        ),
-                                    ]
-                                )
-                            ]
-                        )
+                        # html.Div(
+                        #     className='bg-[#111111] w-full',
+                        #     children=[
+                        #         html.Div(
+                        #             className='flex flex-col gap-4 items-center bg-[#222222]',
+                        #             children=[
+                        #                 html.Div(
+                        #                     className='w-full flex flex-col md:max-w-[500px] px-6 pt-6 gap-3 md:text-base',
+                        #                     children=[
+                        #                         html.H3(children='Specific search',
+                        #                                 className='text-base pb-4 md:py-6 lg:text-lg 2xl:text-xl'),
+                        #                         html.Div([
+                        #                             html.P(children='Manufacturer', className='text-bold mb-1'),
+                        #                             dcc.Dropdown(
+                        #                                 id='manufacturer-name',
+                        #                                 options=df.make.unique(),
+                        #                                 className='text-black',
+                        #                                 value='Ford',
+                        #                                 clearable=False,
+                        #                             )
+                        #                         ]),
+                        #                         html.Div([
+                        #                             html.P(children='Model', className='text-bold mb-1'),
+                        #                             dcc.Dropdown(
+                        #                                 id='model-name',
+                        #                                 className='text-black',
+                        #                             )
+                        #                         ]),
+                        #                         html.Div([
+                        #                             html.P(children='Year of Production', className='text-bold mb-1', ),
+                        #                             dcc.Dropdown(options=df.year.unique(), id='year-of-production',
+                        #                                          className='text-black', placeholder='Any'),
+                        #                         ]),
+                        #                     ]
+                        #                 ),
+                        #
+                        #                 html.P(
+                        #                     className='text-center py-6 md:py-8 text-lg 2xl:text-xl font-bold',
+                        #                     id='manufacturer-name-p',
+                        #                 ),
+                        #                 html.Div(
+                        #                     className='w-full max-w-[700px] pb-6 md:pb-12 lg:pb-16',
+                        #                     children=[
+                        #                         dcc.Graph(id='filtered-table'),
+                        #                     ]
+                        #                 ),
+                        #
+                        #                 html.Div(
+                        #                     className='w-full flex flex-col bg-[#111111] pt-6 md:pt-12 lg:pt-16',
+                        #                     children=[
+                        #                         html.P(
+                        #                             className='text-center text-lg md:text-xl lg:text-xl font-bold pb-6 md:pb-12 lg:pb-16',
+                        #                             children='Filtered data plots'
+                        #                         ),
+                        #                         html.Div(
+                        #                             className='w-full flex flex-col xl:flex-row xl:justify-center xl:gap-12',
+                        #                             children=[
+                        #                                 dcc.Graph(id='manufacturer-sales-graph'),
+                        #                                 dcc.Graph(id='transmission-distribution')
+                        #                             ]
+                        #
+                        #                         ),
+                        #                         html.Div(
+                        #                             className='w-full flex flex-col xl:flex-row xl:justify-center md:pb-12',
+                        #                             children=[
+                        #                                 dcc.Graph(id='best-selling-states')
+                        #                             ]
+                        #                         ),
+                        #                     ]
+                        #                 ),
+                        #             ]
+                        #         )
+                        #     ]
+                        # )
                     ]
                 ),
             ]
@@ -175,78 +175,78 @@ def update_map(value):
     return fig_map
 
 
-@app.callback(
-    [Output('manufacturer-name-p', 'children'),
-     Output('manufacturer-sales-graph', 'figure'),
-     Output('transmission-distribution', 'figure'),
-     Output('model-name', 'options'),
-     Output('filtered-table', 'figure'),
-     Output('best-selling-states', 'figure')],
-    [Input('manufacturer-name', 'value'),
-     Input('year-of-production', 'value'),
-     Input('model-name', 'value')],
-    prevent_initial_call=True
-)
-def update_manufacturer_sales(name, year, model_name):
-    dff = df.copy()
-    dff = dff[dff['make'] == name]
-
-    if ctx.triggered_id == 'manufacturer-name':
-        year = None
-        model_name = None
-
-    elif ctx.triggered_id == 'year-of-production':
-        if year is None:
-            if model_name is not None:
-                dff = dff[dff['model'] == model_name]
-        else:
-            if model_name is not None:
-                dff = dff[(dff['year'] == year) & (dff['model'] == model_name)]
-            else:
-                dff = dff[dff['year'] == year]
-
-    elif ctx.triggered_id == 'model-name':
-        if model_name is None:
-            if year is not None:
-                dff = dff[dff['year'] == year]
-        else:
-            if year is not None:
-                dff = dff[(dff['year'] == year) & (dff['model'] == model_name)]
-            else:
-                dff = dff[dff['model'] == model_name]
-
-    manufacturer_sales = px.box(
-        data_frame=dff,
-        x=dff['sellingprice'],
-        template='plotly_dark',
-        title='Selling price distribution'
-    ).update_layout(title_x=.5)
-
-    transmission_dis = px.pie(
-        data_frame=dff,
-        template='plotly_dark',
-        names=dff['transmission'],
-        title='Transmission'
-    ).update_layout(title_x=.5)
-
-    p = f'Data on {name} sales'
-
-    models = dff['model'].unique()
-
-    if len(dff) > 0:
-        data_row = [name, len(dff), round(dff['sellingprice'].mean()), round(dff['odometer'].mean())]
-    else:
-        data_row = ['no data' for _ in range(4)]
-
-    table_data = [
-        ['Manufacturer', 'Sold Cars', 'Avg Price', 'Avg Odometer'],
-        data_row
-    ]
-    table = ff.create_table(table_data)
-
-    best_states = px.bar(dff['state'].value_counts(), template='plotly_dark', title='Best Selling States').update_layout(title_x=.5)
-
-    return p, manufacturer_sales, transmission_dis, models, table, best_states
+# @app.callback(
+#     [Output('manufacturer-name-p', 'children'),
+#      Output('manufacturer-sales-graph', 'figure'),
+#      Output('transmission-distribution', 'figure'),
+#      Output('model-name', 'options'),
+#      Output('filtered-table', 'figure'),
+#      Output('best-selling-states', 'figure')],
+#     [Input('manufacturer-name', 'value'),
+#      Input('year-of-production', 'value'),
+#      Input('model-name', 'value')],
+#     prevent_initial_call=True
+# )
+# def update_manufacturer_sales(name, year, model_name):
+#     dff = df.copy()
+#     dff = dff[dff['make'] == name]
+#
+#     if ctx.triggered_id == 'manufacturer-name':
+#         year = None
+#         model_name = None
+#
+#     elif ctx.triggered_id == 'year-of-production':
+#         if year is None:
+#             if model_name is not None:
+#                 dff = dff[dff['model'] == model_name]
+#         else:
+#             if model_name is not None:
+#                 dff = dff[(dff['year'] == year) & (dff['model'] == model_name)]
+#             else:
+#                 dff = dff[dff['year'] == year]
+#
+#     elif ctx.triggered_id == 'model-name':
+#         if model_name is None:
+#             if year is not None:
+#                 dff = dff[dff['year'] == year]
+#         else:
+#             if year is not None:
+#                 dff = dff[(dff['year'] == year) & (dff['model'] == model_name)]
+#             else:
+#                 dff = dff[dff['model'] == model_name]
+#
+#     manufacturer_sales = px.box(
+#         data_frame=dff,
+#         x=dff['sellingprice'],
+#         template='plotly_dark',
+#         title='Selling price distribution'
+#     ).update_layout(title_x=.5)
+#
+#     transmission_dis = px.pie(
+#         data_frame=dff,
+#         template='plotly_dark',
+#         names=dff['transmission'],
+#         title='Transmission'
+#     ).update_layout(title_x=.5)
+#
+#     p = f'Data on {name} sales'
+#
+#     models = dff['model'].unique()
+#
+#     if len(dff) > 0:
+#         data_row = [name, len(dff), round(dff['sellingprice'].mean()), round(dff['odometer'].mean())]
+#     else:
+#         data_row = ['no data' for _ in range(4)]
+#
+#     table_data = [
+#         ['Manufacturer', 'Sold Cars', 'Avg Price', 'Avg Odometer'],
+#         data_row
+#     ]
+#     table = ff.create_table(table_data)
+#
+#     best_states = px.bar(dff['state'].value_counts(), template='plotly_dark', title='Best Selling States').update_layout(title_x=.5)
+#
+#     return p, manufacturer_sales, transmission_dis, models, table, best_states
 
 
 if __name__ == '__main__':
